@@ -12,7 +12,6 @@ class Server
         try (
             ServerSocket ss = new ServerSocket(port);
             Socket s  = ss.accept();
-
             Scanner sc = new Scanner(s.getInputStream());
             PrintWriter pw = new PrintWriter(s.getOutputStream());
         ) {
