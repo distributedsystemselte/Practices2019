@@ -9,7 +9,7 @@ class Client
     {
         int port = 12345;
         String computer = "localhost";
-
+        Scanner commandLine = new Scanner(System.in);
         try (
             Socket s = new Socket(computer, port);
 
@@ -24,7 +24,6 @@ class Client
                 System.out.println("CONNECTED!");
                 while(true){
                     System.out.println("Your msgs: ");
-                    Scanner commandLine = new Scanner(System.in);
                     String  msgs = commandLine.nextLine();
                     String receivedMsg = sc.nextLine();
                     pw.println(msgs);
