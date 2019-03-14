@@ -1,19 +1,40 @@
+import java.util.*;
 import java.io.*;
 import java.net.*;
-import java.util.*;
+
 public class Client{
-  public static void main(String[] args){
-    int port = 12345;
-    try{
-      String computer = "localhost";
-      Animal animal = new Animal("Cat Joe");
-      Socket socket = new Socket(computer,port);
-      ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-      outputStream.writeObject(animal);
-      outputStream.close();
-    }
-    catch (Exception e){
-      System.out.println(e);
-    }
-  }
+	
+	public static void main(String [] args){
+		int port=12345;
+		String computer = "localhost";
+		
+		Animal animal = new Animal("Cat Joe");
+		
+		try{
+			Socket socket = new Socket(computer, port);
+			
+			ObjectOutputStream outputStream = 
+				new ObjectOutputStream(socket.getOutputStream());
+				
+			ObjectInputStream input = 
+				new ObjectInputStream(socket.getInputStream());
+				
+			outputStream.writeObject(animal);
+			
+			System.out.println(animal.getName());
+			
+			outputStream.close();
+			
+			input.readObject();
+			
+			
+			
+		}catch(Exception e){
+			System.out.println(e);
+			
+		}
+	}
+	
+	
+	
 }
