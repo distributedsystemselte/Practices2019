@@ -1,66 +1,33 @@
 package models;
-
-public class Game {
+import java.io.*;
+import java.net.*;
+import java.util.*;
+public class Game implements Serializable {
     private Board board;
+    final static long serialVersionUID = 2;
     private int turn=1, who=1;
     private Player player1;
     private Player player2;
-    public Scanner input = new Scanner(System.in);
-
-
     public Game(){
+    }
+    public Game(Player player1,Player player2){
         board = new Board();
-        startPlayers();
-
-        while( Play() );
+        this.player1 = player1;
+        this.player2 = player2;
     }
-
-    public void startPlayers(){
-        System.out.println("Who will be player1 ?");
-        if(choosePlayer() == 1)
-            this.player1 = new Human(1);
-        else
-            this.player1 = new Computer(1);
-
-        System.out.println("----------------------");
-        System.out.println("Who will be Player 2 ?");
-
-        if(choosePlayer() == 1)
-            this.player2 = new Human(2);
-        else
-            this.player2 = new Computer(2);
-
+    public Board getBoard(){
+        return board;
     }
-
-    public int choosePlayer(){
-        int option=0;
-
-        do{
-            System.out.println("1. Human");
-            System.out.println("2. Computer\n");
-            System.out.print("Option: ");
-            option = input.nextInt();
-
-            if(option != 1 && option != 2)
-                System.out.println("Invalid Option! Try again");
-        }while(option != 1 && option != 2);
-
-        return option;
-    }
-
-    public boolean Play(){
+    public boolean Play(Pair p){
         board.showBoard();
         if(won() == 0 ){
             System.out.println("----------------------");
             System.out.println("\nTurn "+turn);
             System.out.println("It's turn of Player " + who() );
-
             if(who()==1)
-                player1.play(board);
+                player1.play(board,p);
             else
-                player2.play(board);
-
-
+                player2.play(board,p);
             if(board.fullBoard()){
                 System.out.println("Full Board. Draw!");
                 return false;
@@ -79,7 +46,6 @@ public class Game {
         }
 
     }
-
     public int who(){
         if(who%2 == 1)
             return 1;
