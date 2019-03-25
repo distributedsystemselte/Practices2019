@@ -15,35 +15,48 @@ public class TicTacToeServer {
             Socket socket = ss.accept();
             Scanner sc = new Scanner(socket.getInputStream());
             PrintWriter pw = new PrintWriter(socket.getOutputStream());
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+	        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
         ) {
-            Game game = new Game(player1,player2);
-            boolean won = false;
-            while(true){
-                System.out.println("Enter line: ");
-                int line = userInput.nextInt();
-                System.out.println("Enter row: ");
-                int row  =  userInput.nextInt();    
-                Pair serverPair = new Pair(line,row);
-                won = game.Play(serverPair);
-                pw.println(won);
-                pw.flush();
-                game.getBoard().showBoard();
-                if(!won){
-                    break;
-                }
-                int lineClient = sc.nextInt();
-                int rowClient = sc.nextInt();
-                Pair pairClient = new Pair(lineClient,rowClient);
-                won = game.Play(pairClient);
-                pw.println(won);
-                pw.flush();
-                if(!won){
-                    break;
-                }  
-                game.getBoard().showBoard();
+            
+            Game game = new Game(player1,player2);         
+            while (true)  
+            { 
+                socket = ss.accept();   
+                Scanner dis = new Scanner(s.getInputStream()); 
+                PrintWriter dos = new PrintWriter(s.getOutputStream());   
+                ChatClient mtch = new ChatClient(s,"user_" + i, dis, dos); 
+                Thread t = new Thread(mtch); 
+                System.out.println("Adding this client to active client list"); 
+                ar.add(mtch);
+                t.start(); 
+                i++; 
             }
-            socket.close();
         }
 
     }
+}
+
+class ServerThread implements Runnable{
+	Socket socket;
+	Scanner scanner;
+	PrintWriter writer;
+	
+	public ServerThread(Socket s) throws Exception{
+		this.socket = s;
+		this.scanner = new Scanner(s.getInputStream());
+		this.writer = new PrintWriter(s.getOutputStream());
+	}
+	
+	public void run(){
+		String text;
+		while(true)
+		while(scanner.hasNextLine()){
+			text = scanner.nextLine();
+			System.out.println(text);
+		}
+		
+		
+	}
+	
 }

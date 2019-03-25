@@ -5,27 +5,39 @@ import models.*;
 
 public class TicTacToeClient {
     public static void main(String[] args) throws Exception {
-        int port = 1234;
-        String computer = "localhost";
-        try (
-            Scanner userInput = new Scanner(System.in);
-            Socket socket = new Socket(computer, port);
-            Scanner sc = new Scanner(socket.getInputStream());
-            PrintWriter pw = new PrintWriter(socket.getOutputStream());
-            ){
-            while(sc.nextBoolean()){
-                System.out.println("Line number : ");
-                int line = userInput.nextInt();
-                pw.println(line);
-                pw.flush();
-                System.out.println("ROW number: ");
-                int row = userInput.nextInt();
-                pw.println(row);
-                pw.flush();
-            }
-            
-            socket.close();
-            
-        } 
+        int ServerPort = 1234;
+        Scanner scn = new Scanner(System.in);           
+        Socket s = new Socket("localhost", ServerPort);           
+        Scanner dis = new Scanner(s.getInputStream()); 
+        PrintWriter dos = new PrintWriter(s.getOutputStream()); 
+        String name = args[0];
+        Thread sendMessage = new Thread(
+	        new Runnable()  
+	        { 
+	            @Override
+	            public void run() { 
+	                while (true) { 
+	                	String msg = scn.nextLine(); 
+	                	String response=msg+"#"+name;
+	                    dos.println(response); 
+	                    dos.flush();
+	                } 
+	            } 
+	        }
+        ); 
+        Thread readMessage = new Thread(new Runnable()  
+        { 
+            @Override
+            public void run() { 
+  
+                while (true) { 
+                    String msg = dis.nextLine(); 
+                    System.out.println(msg); 
+                } 
+            } 
+        }); 
+  
+        sendMessage.start(); 
+        readMessage.start(); 
     }
 }

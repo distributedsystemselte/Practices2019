@@ -2,7 +2,6 @@ package models;
 import java.io.*;
 import java.util.Scanner;
 public class Human extends Player {
-   
     final static long serialVersionUID = 1;
     public Human(){
         super();
