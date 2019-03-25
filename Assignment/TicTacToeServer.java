@@ -27,6 +27,7 @@ public class TicTacToeServer {
                 won = game.Play(serverPair);
                 pw.println(won);
                 pw.flush();
+                game.getBoard().showBoard();
                 if(!won){
                     break;
                 }
@@ -39,6 +40,7 @@ public class TicTacToeServer {
                 if(!won){
                     break;
                 }  
+                game.getBoard().showBoard();
             }
             socket.close();
         }

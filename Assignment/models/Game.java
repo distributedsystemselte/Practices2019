@@ -19,7 +19,6 @@ public class Game implements Serializable {
         return board;
     }
     public boolean Play(Pair p){
-        board.showBoard();
         if(won() == 0 ){
             System.out.println("----------------------");
             System.out.println("\nTurn "+turn);
