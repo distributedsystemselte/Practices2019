@@ -10,30 +10,40 @@ public class TicTacToeClient {
         Socket s = new Socket("localhost", ServerPort);           
         Scanner dis = new Scanner(s.getInputStream()); 
         PrintWriter dos = new PrintWriter(s.getOutputStream()); 
-        String name = args[0];
+        Object obj = new Object();
         Thread sendMessage = new Thread(
 	        new Runnable()  
 	        { 
 	            @Override
-	            public void run() { 
+	            public void run() {
+                    synchronized(obj){
 	                while (true) { 
-	                	String msg = scn.nextLine(); 
-	                	String response=msg+"#"+name;
-	                    dos.println(response); 
+                        System.out.println("Enter receipent: ");
+                        String msg = scn.nextLine();
+                        System.out.println("Enter the line: ");
+                        int line = scn.nextInt();
+                        System.out.println("Enter the row: ");
+                        int row = scn.nextInt();
+                        dos.println(msg);
+                        dos.println(line);
+                        dos.println(row);
 	                    dos.flush();
 	                } 
-	            } 
+                } 
+             }
 	        }
         ); 
         Thread readMessage = new Thread(new Runnable()  
         { 
             @Override
             public void run() { 
-  
+                synchronized(obj){
                 while (true) { 
-                    String msg = dis.nextLine(); 
+                    String msg = dis.nextLine();
+
                     System.out.println(msg); 
-                } 
+                }
+               }
             } 
         }); 
   

@@ -6,26 +6,30 @@ import models.Pair;
 import models.*;
 
 public class TicTacToeServer {
+    static Vector<ChatClient> ar = new Vector<>(); 
+    static int i = 0;  
     public static void main(String[] args) throws Exception{
         int port = 1234;
         Player player1 = new Human(1);
         Player player2 = new Human(2);
         Scanner userInput = new Scanner(System.in);
         try (ServerSocket ss = new ServerSocket(port);
-            Socket socket = ss.accept();
-            Scanner sc = new Scanner(socket.getInputStream());
-            PrintWriter pw = new PrintWriter(socket.getOutputStream());
-            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-	        ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+           
+            // Scanner sc = new Scanner(socket.getInputStream());
+            // PrintWriter pw = new PrintWriter(socket.getOutputStream());
+            // ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+	        // ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
         ) {
             
-            Game game = new Game(player1,player2);         
+            Game game = new Game(player1,player2); 
+            Object sync = new Object();
             while (true)  
             { 
-                socket = ss.accept();   
-                Scanner dis = new Scanner(s.getInputStream()); 
-                PrintWriter dos = new PrintWriter(s.getOutputStream());   
-                ChatClient mtch = new ChatClient(s,"user_" + i, dis, dos); 
+                Socket socket = ss.accept();   
+                Scanner dis = new Scanner(socket.getInputStream()); 
+                PrintWriter dos = new PrintWriter(socket.getOutputStream()); 
+                ChatClient mtch = new ChatClient(socket,"user_" + i, dis, dos,game,sync); 
+                System.out.println("user_"+i + " is connected");  
                 Thread t = new Thread(mtch); 
                 System.out.println("Adding this client to active client list"); 
                 ar.add(mtch);
@@ -35,28 +39,4 @@ public class TicTacToeServer {
         }
 
     }
-}
-
-class ServerThread implements Runnable{
-	Socket socket;
-	Scanner scanner;
-	PrintWriter writer;
-	
-	public ServerThread(Socket s) throws Exception{
-		this.socket = s;
-		this.scanner = new Scanner(s.getInputStream());
-		this.writer = new PrintWriter(s.getOutputStream());
-	}
-	
-	public void run(){
-		String text;
-		while(true)
-		while(scanner.hasNextLine()){
-			text = scanner.nextLine();
-			System.out.println(text);
-		}
-		
-		
-	}
-	
 }
