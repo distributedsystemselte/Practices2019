@@ -14,22 +14,14 @@ public class TicTacToeServer {
         Player player2 = new Human(2);
         Scanner userInput = new Scanner(System.in);
         try (ServerSocket ss = new ServerSocket(port);
-           
-            // Scanner sc = new Scanner(socket.getInputStream());
-            // PrintWriter pw = new PrintWriter(socket.getOutputStream());
-            // ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-	        // ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-        ) {
-            
+        ) {       
             Game game = new Game(player1,player2); 
-            Object sync = new Object();
             while (true)  
             { 
                 Socket socket = ss.accept();   
                 Scanner dis = new Scanner(socket.getInputStream()); 
                 PrintWriter dos = new PrintWriter(socket.getOutputStream()); 
-                ChatClient mtch = new ChatClient(socket,"user_" + i, dis, dos,game,sync); 
-                System.out.println("user_"+i + " is connected");  
+                ChatClient mtch = new ChatClient(socket,"user_" + i,i,dis, dos,game); 
                 Thread t = new Thread(mtch); 
                 System.out.println("Adding this client to active client list"); 
                 ar.add(mtch);

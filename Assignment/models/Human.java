@@ -20,18 +20,23 @@ public class Human extends Player {
     }
     @Override
     public void play(Board board,Pair p){
-        Try(board,p);
-        board.setPosition(attempt, player);
+        if(Try(board,p)){
+            board.setPosition(attempt, player);
+        }
+        else{
+        }
     }
     @Override
-    public void Try(Board board,Pair p){
+    public boolean Try(Board board,Pair p){
         do {
             do {
                 System.out.print("Line: ");
                 attempt[0] = p.line;
 
-                if( attempt[0] > 3 ||attempt[0] < 1)
+                if( attempt[0] > 3 ||attempt[0] < 1){
                     System.out.println("Invalid line. It's 1, 2 or 3");
+                    return false;
+                }
 
             } while( attempt[0] > 3 ||attempt[0] < 1);
 
@@ -39,16 +44,21 @@ public class Human extends Player {
                 System.out.print("Column: ");
                 attempt[1] = p.column;
 
-                if(attempt[1] > 3 ||attempt[1] < 1)
+                if(attempt[1] > 3 ||attempt[1] < 1){
                     System.out.println("Invalid column. É 1, 2 or 3");
+                    return false;
+                }
 
             } while(attempt[1] > 3 ||attempt[1] < 1);
 
             attempt[0]--;
             attempt[1]--;
 
-            if(!checkTry(attempt, board))
+            if(!checkTry(attempt, board)){
                 System.out.println("Placed already marked. Try other.");
+                return false;
+            }
         } while( !checkTry(attempt, board) );
+        return true;
     }
 }

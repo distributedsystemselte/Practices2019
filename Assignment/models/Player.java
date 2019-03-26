@@ -13,7 +13,7 @@ public abstract class Player implements Serializable {
         this.player = player;
     }
     public abstract void play(Board board,Pair p);
-    public abstract void Try(Board board,Pair p);
+    public abstract boolean Try(Board board,Pair p);
     public boolean checkTry(int[] attempt, Board board){
         if(board.getPosition(attempt) == 0)
             return true;

@@ -16,37 +16,29 @@ public class TicTacToeClient {
 	        { 
 	            @Override
 	            public void run() {
-                    synchronized(obj){
 	                while (true) { 
-                        System.out.println("Enter receipent: ");
-                        String msg = scn.nextLine();
                         System.out.println("Enter the line: ");
                         int line = scn.nextInt();
                         System.out.println("Enter the row: ");
                         int row = scn.nextInt();
-                        dos.println(msg);
                         dos.println(line);
+                        dos.flush();
                         dos.println(row);
 	                    dos.flush();
 	                } 
                 } 
              }
-	        }
         ); 
         Thread readMessage = new Thread(new Runnable()  
         { 
             @Override
             public void run() { 
-                synchronized(obj){
                 while (true) { 
-                    String msg = dis.nextLine();
-
-                    System.out.println(msg); 
+                    // String msg = dis.nextLine();
+                    // System.out.println(msg); 
                 }
-               }
-            } 
+            }     
         }); 
-  
         sendMessage.start(); 
         readMessage.start(); 
     }
