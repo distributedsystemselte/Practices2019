@@ -12,16 +12,18 @@ class Server
         try (
             ServerSocket ss = new ServerSocket(port);
             Socket s  = ss.accept();
-
             Scanner sc = new Scanner(s.getInputStream());
             PrintWriter pw = new PrintWriter(s.getOutputStream());
         ) {
 
-          String text = sc.nextLine();
-
-          pw.println(text.length());
+          pw.println("You have connected to localhost:12345 :)");
           pw.flush();
-
+          while(true){
+              String text = sc.nextLine();
+              System.out.println(text);
+              pw.println("server is retransmitting: " + text);
+              pw.flush();
+          }
         }
 
     }

@@ -2,3 +2,5 @@ Talk.java
 Tournment.java
 Client.java
 Server.java
+models/*.class
+*.class
