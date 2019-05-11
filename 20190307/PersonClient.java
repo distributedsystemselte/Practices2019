@@ -15,7 +15,8 @@ public class PersonClient{
 	    outputStream.writeObject(person1);
 	    outputStream.writeObject(person2);
 	    Person a = (Person)input.readObject();
-	    System.out.println(a.message);
+			System.out.println(a.message);
+			System.out.println(a.familyName);
 	    input.close();
 	    outputStream.close();
 	}
