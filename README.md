@@ -25,7 +25,7 @@ You're always strongly invited to request consultation, but please send an e-mai
 ## Grading System
 The grade of Distributed Systems practice will be distributed on the following way:
 
-1 midterm test(15%)
+1 homeworks(15%)
 1 midterm assignment(10%)
 1 final assignment(25%)
 1 final exam (50%)
