@@ -24,16 +24,12 @@ public class JsonExample {
   }
 
   public static JSONObject readJsonFromUrl(String surl) throws IOException, JSONException {
-
     URL url = new URL(surl);
     HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
     httpcon.addRequestProperty("User-Agent", "Mozilla/4.0");
-
     InputStream is = httpcon.getInputStream();
     //InputStream is = new URL(url).openStream();
-
     try {
-      System.out.println("ahhhhhhhhhh");
       BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
       String jsonText = readAll(rd);
       JSONObject json = new JSONObject(jsonText);

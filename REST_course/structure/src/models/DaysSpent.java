@@ -17,14 +17,19 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlElementRef;
 
 @XmlRootElement //(name="Pepepeperson")
-public class Time implements Serializable{
-    private String utcDatetime;
-    private Date utcDateTimeD; 
-    public Time(String utcDateTime){
-        this.utcDateTime = utcDateTime;
-        utcDateTimeD = new Date(utcDateTime);
+public class DaysSpent implements Serializable{
+    private long days;
+    public DaysSpent(long days){
+        this.days = days;
     }
-    public String getUtcTime(){
-        return utcDatetime;
+    public DaysSpent(){
+
+    }
+    @XmlElement(name = "days")
+    public long getDays(){
+        return days;
+    }
+    public void setDays(long days){
+        this.days = days;
     }
 }

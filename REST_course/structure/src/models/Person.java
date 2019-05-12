@@ -24,7 +24,6 @@ public class Person implements Serializable {
     private String firstname;
     private String username;
     private Date created;
-    @Transient
     private String email;
     public Person(String lastname, String firstname, String username, String email){
       this.lastname = lastname;
